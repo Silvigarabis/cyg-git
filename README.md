@@ -15,6 +15,12 @@ A proxy between Cygwin's `git` command and VSCode.
 
 3. Done! Now VSCode will use `cyggit.exe` as the Git executable.  
 
+## How It Works
+
+    This program directly calls `git.exe` and `cygpath`, assuming both are available in PATH.
+    cygpath is used to convert Windows-style paths to Unix-style paths for Cygwin's git.
+    If git or cygpath is missing, the program will fail to execute properly.
+
 ## **Build**  
 
 You need **MinGW-w64** to build this project.  

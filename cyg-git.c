@@ -3,6 +3,8 @@
 #include <string.h>
 #include <unistd.h>
 #include <windows.h>
+#include <fcntl.h>
+#include <io.h>
 
 #define GIT_PATH "git.exe"
 #define MAX_CMDLINE_PATH 4096
@@ -72,6 +74,7 @@ char* get_path(char*path, char mode){
 }
 
 int main(int argc, char *argv[]) {
+    _setmode(_fileno(stdout), _O_BINARY);
 
     char wrap_output = 0;
 
@@ -101,8 +104,18 @@ int main(int argc, char *argv[]) {
 
     char cmdline[MAX_CMDLINE_PATH];
     build_command_line(cmdline, mod_args, argc);
+
+    /*
+    the popen() uses `cmd /C %cmdline`
+    so a cmdline must be quoted
+    */
+    char cmdline_quoted[MAX_CMDLINE_PATH];
+    strcpy(cmdline_quoted, "\"");
+    strcat(cmdline_quoted, cmdline);
+    strcat(cmdline_quoted, "\"");
+
     if (wrap_output){
-        FILE *fp = popen(cmdline, "r");
+        FILE *fp = popen(cmdline_quoted, "r");
         if (fp == NULL) {
             perror("wrap_output: popen failed");
             exit(EXIT_FAILURE);
@@ -114,6 +127,11 @@ int main(int argc, char *argv[]) {
             } else {
                 char *mod_path = get_path(buffer, 'w');
                 printf("%s", mod_path);
+
+                int buf_str_len = strlen(buffer);
+                if (buffer[buf_str_len - 1] == '\n'){
+                    putchar('\n');
+                }
             }
         }
         int status = pclose(fp);

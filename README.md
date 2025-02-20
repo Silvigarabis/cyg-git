@@ -1,28 +1,39 @@
-# Cyg-Git
+# **Cyg-Git**  
 
-A proxy between Cygwin's `git` command and VSCode.
+A proxy between Cygwin's `git` command and VSCode.  
 
-- put `cyggit.exe` to somewhere, I will use `C:\cygwin64\local\bin\cyggit.exe`
-- modify it on VSCode's `settings.json`
-```json
-{
-  "git.path": "C:\\cygwin64\\local\\bin\\cyggit.exe"
-}
+## **Installation**  
+
+1. Place `cyggit.exe` somewhere on your system, e.g., `C:\cygwin64\local\bin\cyggit.exe`.  
+2. Modify VSCode's `settings.json`:  
+
+   ```json
+   {
+     "git.path": "C:\\cygwin64\\local\\bin\\cyggit.exe"
+   }
+   ```
+
+3. Done! Now VSCode will use `cyggit.exe` as the Git executable.  
+
+## **Build**  
+
+You need **MinGW-w64** to build this project.  
+Download it from [MinGW Builds](https://github.com/niXman/mingw-builds-binaries/releases/tag/14.2.0-rt_v12-rev1).  
+The recommended version:  
+
+- `x86_64-14.2.0-release-win32-seh-msvcrt-rt_v12-rev1.7z`  
+
+To compile:  
+
+```sh
+x86_64-w64-mingw32-gcc -o cyggit.exe cyg-git.c
 ```
-- All done!
 
-## build
+*A pre-built binary is also included, in case you don't want to compile it yourself.*  
 
-use MinGW64 to build it, download on <https://github.com/niXman/mingw-builds-binaries/releases/tag/14.2.0-rt_v12-rev1>,
-uses `x86_64-14.2.0-release-win32-seh-msvcrt-rt_v12-rev1.7z`
+## **Acknowledgments**  
 
-build with it: `x86_64-w64-mingw32-gcc -o cyggit.exe cyg-git.c` 
+- Thanks to the original author (@) for creating a **Zsh-based Git wrapper**.  
+- Thanks to **ChatGPT** for providing useful information that helped rewrite the entire wrapper in C.  
 
-*As your whises, I have put one built binary right there.*
-
-## Thanks
-
-thanks for origin auther to make a zsh version of git-wrapper.
-thanks for ChatGPT, he gave a lots of infomation to enable me to rewrite the whole wrapper with C language.
-
-That's all!
+That's all! 🚀  

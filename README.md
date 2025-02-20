@@ -39,7 +39,7 @@ x86_64-w64-mingw32-gcc -o cyggit.exe cyg-git.c
 
 ## **Acknowledgments**  
 
-- Thanks to the original author (@) for creating a **Zsh-based Git wrapper**.  
+- Thanks to the original author (@nukata) for creating a **Zsh-based Git wrapper**.  
 - Thanks to **ChatGPT** for providing useful information that helped rewrite the entire wrapper in C.  
 
 That's all! 🚀  
